@@ -1032,9 +1032,9 @@ class DocsTools(object):
             else:
                 # suppose to be line of a multiline element
                 if last_element['nature'] == 'param':
-                    ret[last_element['name']]['description'] += f"\n{line}"
+                    ret[last_element['name']]['description'] += "\n" + str(line)
                 elif last_element['nature'] == 'type':
-                    ret[last_element['name']]['description'] += f"\n{line}"
+                    ret[last_element['name']]['description'] += "\n" + str(line)
         return ret
 
     def _extract_not_tagstyle_old_way(self, data):
@@ -1062,7 +1062,7 @@ class DocsTools(object):
                 if start > 0:
                     ptype = data[start: pend].strip()
                 if param in ret:
-                    print(f"WARNING: unexpected parsing duplication of docstring parameter '{param}'")
+                    print("WARNING: unexpected parsing duplication of docstring parameter '" + param + "'")
                 ret[param] = {'type': ptype, 'type_in_param': None, 'description': desc}
                 data = data[end:]
                 listed += 1
@@ -1072,7 +1072,7 @@ class DocsTools(object):
             print("WARNING: an infinite loop was reached while extracting docstring parameters (>10000). This should never happen!!!")
         return ret
 
-    def extract_elements(self, data) -> dict:
+    def extract_elements(self, data):
         """Extract parameter name, description and type from docstring"""
         ret = []
         tagstyles = self.tagstyles + ['unknown']
